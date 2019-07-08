@@ -18,7 +18,7 @@ def imageToBase64(): #just to see how it is a base 64
     b64_bytes = base64.b64encode(data)
     print(b64_bytes)
 
-def saveImage(img):
-    filename = 'some_image.jpg'  # I assume you have a way of picking unique filenames
+def saveImage(img,name):
+    filename = name+'.jpg'  # I assume you have a way of picking unique filenames
     with open(filename, 'wb') as f:
         f.write(img)

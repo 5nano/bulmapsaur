@@ -9,10 +9,11 @@ app = Flask(__name__)
 
 @app.route('/bulmapsaur/api/images', methods=['POST'])
 def processImage():
+    imageName = request.args.get('name')
     img_decoded = base64Decode(request.data)
-    saveImage(img_decoded)
+    saveImage(img_decoded, imageName)
     img = stringToImage(img_decoded)
-    processImageRecognizer("some_image.jpg")
+    processImageRecognizer(imageName+".jpg")
     response = {'message': 'image received. size={}x{}'.format(img.shape[0], img.shape[1])}
     response_pickled = jsonpickle.encode(response)
     return Response(response=response_pickled, status=200, mimetype="application/json")
