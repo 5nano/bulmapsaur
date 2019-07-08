@@ -13,8 +13,8 @@ def stringToImage(base64_string):
     return cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
 
-@app.route('/notify-new-image', methods=['POST'])
-def notifyNewImage():
+@app.route('/bulmapsaur/api/images', methods=['POST'])
+def processImage():
     #example encode base 64
     #filename = "/home/matiaszeitune/Descargas/hoja.jpg"
     #with open(filename, "rb") as fid:
