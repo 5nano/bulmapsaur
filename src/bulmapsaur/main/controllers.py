@@ -1,4 +1,5 @@
 import jsonpickle
+import json
 from flask import Flask, Response, request
 from flask_cors import CORS
 from flask_sslify import SSLify
@@ -14,12 +15,14 @@ sslify = SSLify(app)
 
 @app.route('/bulmapsaur/api/images', methods=['POST'])
 def processImage():
-    imageName = request.args.get('base64')
-    print(request.data)
-    img_decoded = base64Decode(request.data)
-    saveImage(img_decoded, imageName)
-    img = stringToImage(img_decoded)
-    processImageRecognizer(imageName+".jpg")
+    data = request.data
+    imageInfo = json.loads(data)
+    imageName = imageInfo.get('name')
+    imageB64 = imageInfo.get('base64')
+    img_decoded = encodeUtils.base64Decode(imageB64)
+    encodeUtils.saveImage(imageName,img_decoded)
+    img = encodeUtils.stringToImage(img_decoded)
+    encodeUtils.processImageRecognizer(imageName+".jpg")
     response = {'message': 'image received. size={}x{}'.format(img.shape[0], img.shape[1])}
     response_pickled = jsonpickle.encode(response)
     return Response(response=response_pickled, status=200, mimetype="application/json")

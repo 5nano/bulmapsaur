@@ -11,14 +11,14 @@ def stringToImage(decoded_string):
     return cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
 
 def imageToBase64(): #just to see how it is a base 64
-    filename = "/home/matiaszeitune/Descargas/hoja.jpg"
+    filename = "/home/lucasamoroso/Downloads/bla/pruebaHojas.jpg"
     with open(filename, "rb") as fid:
         data = fid.read()
     #example encode base 64
     b64_bytes = base64.b64encode(data)
     print(b64_bytes)
 
-def saveImage(img,name):
+def saveImage(name,img):
     filename = name+'.jpg'  # I assume you have a way of picking unique filenames
     with open(filename, 'wb') as f:
         f.write(img)
