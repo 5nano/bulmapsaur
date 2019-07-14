@@ -9,17 +9,12 @@ from image_recognizer import processImageRecognizer
 
 app = Flask(__name__)
 CORS(app)
-context = ('src/bulmapsaur/cert/localhost.crt','src/bulmapsaur/cert/localhost.key')
+context = ('src/bulmapsaur/cert/selfsigned.crt','src/bulmapsaur/cert/selfsigned.key')
 sslify = SSLify(app)
-
-@app.route('/bulmapsaur', methods=['GET'])
-def bla():
-    return Response(response="lucas", status=200, mimetype="application/json")
 
 @app.route('/bulmapsaur/api/images', methods=['POST'])
 def processImage():
-    print("lucas")
-    imageName = request.args.get('name')
+    imageName = request.args.get('base64')
     print(request.data)
     img_decoded = base64Decode(request.data)
     saveImage(img_decoded, imageName)
