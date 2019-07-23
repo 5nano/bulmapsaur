@@ -1,6 +1,6 @@
 from tornado.log import app_log
-import utils.encode_utils as base64Decode
-import utils.file_utils as saveImage
+from utils.encode_utils import base64Decode
+from utils.file_utils import saveImage
 
 from image_analyzer import analyze
 
