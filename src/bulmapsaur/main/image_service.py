@@ -1,17 +1,12 @@
-import logging
-from logging.config import fileConfig
-
-import image_analyzer as imageAnalyzer
-import utils.encode_utils as encodeUtils
-import utils.file_utils as fileUtils
-
-fileConfig('config/logging_config.ini',disable_existing_loggers=False)
-logger = logging.getLogger()
+from tornado.log import app_log
+from image_analyzer import analyze
+from utils.encode_utils import base64Decode
+from utils.file_utils import saveImage
 
 
 async def processImage(imageName,imageB64):
-    logger.info("Processing image %s ...",imageName)
-    img_decoded = encodeUtils.base64Decode(imageB64)
-    fileUtils.saveImage(imageName,img_decoded)
-    #imageAnalyzer.analyze(imageName+".jpg")
-    logger.info("Image %s succesfully processed ",imageName)
+    app_log.info("Processing image %s ...",imageName)
+    img_decoded = base64Decode(imageB64)
+    saveImage(imageName,img_decoded)
+    #analyze(imageName+".jpg")
+    app_log.info("Image %s succesfully processed ",imageName)
