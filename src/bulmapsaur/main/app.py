@@ -8,7 +8,7 @@ from tornado.httpserver import HTTPServer, ssl
 from tornado.ioloop import IOLoop
 from tornado.options import define, options
 
-import src.bulmapsaur.main.image_service as imageService
+import image_service as imageService
 
 class ImageRequestHandler(tornado.web.RequestHandler):
     async def post(self): 

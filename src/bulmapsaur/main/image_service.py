@@ -1,8 +1,8 @@
 from tornado.log import app_log
-import src.bulmapsaur.main.utils.encode_utils as base64Decode
-import src.bulmapsaur.main.utils.file_utils as saveImage
+import utils.encode_utils as base64Decode
+import utils.file_utils as saveImage
 
-from src.bulmapsaur.main.image_analyzer import analyze
+from image_analyzer import analyze
 
 
 async def processImage(imageName,imageB64):
