@@ -110,7 +110,7 @@ def main():
 
 
     # Access data stored out from analyze_object
-    plant_solidity = pcv.outputs.observations['segment_insertion_angle']['value']
+    plant_solidity = pcv.outputs.observations
 
     print(plant_solidity)
 
