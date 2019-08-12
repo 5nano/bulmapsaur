@@ -23,7 +23,7 @@ def options():
 #### Start of the Main/Customizable portion of the workflow.
 
 ### Main workflow
-def main():
+def analyze(image_name):
     # Get options
     args = options()
 
@@ -31,7 +31,7 @@ def main():
     pcv.params.debug_outdir = args.outdir  # set output directory
 
     # Read image
-    img, path, filename = pcv.readimage(filename="/home/matiaszeitune/mezeitune/proyecto-final/bulmapsaur/src/bulmapsaur/main/original_image.png")
+    img, path, filename = pcv.readimage(filename=image_name)
 
     # Convert RGB to HSV and extract the saturation channel
     s = pcv.rgb2gray_hsv(rgb_img=img, channel='s')
@@ -82,7 +82,7 @@ def main():
     id_objects, obj_hierarchy = pcv.find_objects(img=masked2, mask=ab_fill)
 
     # Define ROI
-    roi1, roi_hierarchy= pcv.roi.rectangle(img=masked2, x=100, y=100, h=200, w=200)
+    roi1, roi_hierarchy= pcv.roi.rectangle(img=masked2, x=100, y=100, h=200, w=200) #TODO: ver x e y adecuado
 
     # Decide which objects to keep
     roi_objects, hierarchy3, kept_mask, obj_area = pcv.roi_objects(img=img, roi_contour=roi1,
@@ -105,14 +105,12 @@ def main():
 
 
     # Save returned images with more specific naming
-    pcv.print_image(shape_imgs, '/home/matiaszeitune/Escritorio/setaria_shape_img.png')
+    #pcv.print_image(shape_imgs, '/home/matiaszeitune/Escritorio/setaria_shape_img.png')
 
 
 
     # Access data stored out from analyze_object
-    plant_solidity = pcv.outputs.observations
+    plant_observations = pcv.outputs.observations
 
-    print(plant_solidity)
+    return plant_observations
 
-if __name__ == '__main__':
-    main()
