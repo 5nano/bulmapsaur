@@ -7,28 +7,11 @@ import string
 from plantcv import plantcv as pcv
 
 
-### Parse command-line arguments
-def options():
-    parser = argparse.ArgumentParser(description="Imaging processing with opencv")
-    parser.add_argument("-i", "--image", help="Input image file.", required=False)
-    parser.add_argument("-o", "--outdir", help="Output directory for image files.", required=False)
-    parser.add_argument("-r", "--result", help="result file.", required=False)
-    parser.add_argument("-w", "--writeimg", help="write out images.", default=False, action="store_true")
-    parser.add_argument("-D", "--debug",
-                        help="can be set to 'print' or None (or 'plot' if in jupyter) prints intermediate images.",
-                        default=None)
-    args = parser.parse_args()
-    return args
-
 #### Start of the Main/Customizable portion of the workflow.
 
 ### Main workflow
 def analyze(image_name):
-    # Get options
-    args = options()
 
-    pcv.params.debug = args.debug  # set debug mode
-    pcv.params.debug_outdir = args.outdir  # set output directory
 
     # Read image
     img, path, filename = pcv.readimage(filename=image_name)
@@ -96,9 +79,6 @@ def analyze(image_name):
 
     ############### Analysis ################
 
-    outfile=False
-    if args.writeimg == True:
-        outfile = args.outdir + "/" + filename
 
     # Find shape properties, output shape image (optional)
     shape_imgs = pcv.analyze_object(img=img, obj=obj, mask=mask)
