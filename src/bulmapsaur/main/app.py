@@ -26,7 +26,6 @@ class ImageRequestHandler(tornado.web.RequestHandler):
 
 app = tornado.web.Application([
     (r"/bulmapsaur/api/images", ImageRequestHandler)
-    
 ])
 
 define("port", default="8443", help="Port to listen on")
