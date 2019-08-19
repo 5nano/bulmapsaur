@@ -17,6 +17,7 @@ async def processImage(idTest,idPlant,imageB64):
     imageName = idTest+"-"+idPlant+"-"+dt_string
     saveImage(imageName,img_decoded)
     analyze_results = analyze(os.path.realpath(imageName + ".jpg"))
+    app_log.info("Persisting image %s ...", imageName)
     insert(idTest,idPlant,analyze_results, imageB64)
-    app_log.info("Image %s succesfully processed ",imageName)
+    app_log.info("Image %s succesfully processed ", imageName)
 

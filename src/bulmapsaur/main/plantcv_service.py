@@ -12,7 +12,6 @@ from plantcv import plantcv as pcv
 ### Main workflow
 def analyze(image_name):
 
-
     # Read image
     img, path, filename = pcv.readimage(filename=image_name)
 
@@ -65,7 +64,7 @@ def analyze(image_name):
     id_objects, obj_hierarchy = pcv.find_objects(img=masked2, mask=ab_fill)
 
     # Define ROI
-    roi1, roi_hierarchy= pcv.roi.rectangle(img=masked2, x=100, y=100, h=200, w=200) #TODO: ver x e y adecuado
+    roi1, roi_hierarchy= pcv.roi.rectangle(img=masked2, x=0, y=500, h=2000, w=2000) 
 
     # Decide which objects to keep
     roi_objects, hierarchy3, kept_mask, obj_area = pcv.roi_objects(img=img, roi_contour=roi1,
@@ -80,14 +79,11 @@ def analyze(image_name):
     ############### Analysis ################
 
 
-    # Find shape properties, output shape image (optional)
+    # Find shape properties
     shape_imgs = pcv.analyze_object(img=img, obj=obj, mask=mask)
 
-
-    # Save returned images with more specific naming
-    #pcv.print_image(shape_imgs, '/home/matiaszeitune/Escritorio/setaria_shape_img.png')
-
-
+    # Color
+    color_histogram = pcv.analyze_color(rgb_img=img, mask=kept_mask)
 
     # Access data stored out from analyze_object
     plant_observations = pcv.outputs.observations
