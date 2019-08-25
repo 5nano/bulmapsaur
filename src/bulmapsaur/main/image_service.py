@@ -16,8 +16,15 @@ async def processImage(idTest,idPlant,imageB64):
     dt_string = now.strftime("%d-%m-%Y-%H-%M-%S")
     imageName = idTest+"-"+idPlant+"-"+dt_string
     saveImage(imageName,img_decoded)
-    analyze_results = analyze(os.path.realpath(imageName + ".jpg"))
-    app_log.info("Persisting image %s ...", imageName)
-    insert(idTest,idPlant,analyze_results, imageB64)
-    app_log.info("Image %s succesfully processed ", imageName)
+    try:
+        analyze_results = analyze(os.path.realpath(imageName + ".jpg"))
+        app_log.info("Persisting image %s ...", imageName)
+        insert(idTest, idPlant, analyze_results, imageB64)
+    except:
+        app_log.info("Image %s was notsuccesfully processed ", imageName)
+    else:
+        app_log.info("Deleting Image %s from disk ", imageName)
+        path = os.path.join(os.getcwd(), imageName+".jpg")
+        os.remove(path)
+        app_log.info("Image %s succesfully processed ", imageName)
 
