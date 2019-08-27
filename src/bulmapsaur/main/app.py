@@ -9,6 +9,7 @@ from tornado.ioloop import IOLoop
 from tornado.options import define, options
 
 import image_service as imageService
+import reprocess_cron as reprocessCron
 
 class ImageRequestHandler(tornado.web.RequestHandler):
     async def post(self): 
@@ -41,6 +42,7 @@ if __name__ == "__main__":
     # autodetect cpu cores and fork one process per core
     try:
         server.start(0)
+        reprocessCron.run()
         IOLoop.instance().start()
     except KeyboardInterrupt:
         IOLoop.instance().stop()
