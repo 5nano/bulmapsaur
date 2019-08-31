@@ -13,5 +13,5 @@ def insert(idTest, idPlant, measures, image):
     except:
         print("could not insert measures")
     else:
-        session.execute('insert into images(id_assay,id_experiment,time,image) values(%s,%s,%s,%s)',(id_assay, id_experiment, timeNow, str(image)))
+        session.execute_async('insert into images(id_assay,id_experiment,time,image) values(%s,%s,%s,%s)',(id_assay, id_experiment, timeNow, str(image)))
 
