@@ -14,12 +14,12 @@ class ImageRequestHandler(tornado.web.RequestHandler):
     async def post(self): 
             data = self.request.body
             imageInfo = json.loads(data)
-            idTest = imageInfo.get('idTest')
-            idPlant = imageInfo.get('idPlant')
+            idAssay = imageInfo.get('idAssay')
+            idExperiment = imageInfo.get('idExperiment')
             imageB64 = imageInfo.get('base64')
-            app_log.info("Image with idTest %s and idPlant %s received",idTest,idPlant)
+            app_log.info("Image with idTest %s and idPlant %s received",idAssay,idExperiment)
             #En algun momento va a correr
-            IOLoop.current().spawn_callback(imageService.processImage, idTest,idPlant, imageB64)
+            IOLoop.current().spawn_callback(imageService.processImage, idAssay,idExperiment, imageB64)
             self.write("Ok")
             self.finish()
 

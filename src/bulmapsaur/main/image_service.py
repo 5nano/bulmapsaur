@@ -10,17 +10,17 @@ from plantcv_service import analyze
 from cassandra_connector import insert
 
 
-async def processImage(idTest,idPlant,imageB64):
-    app_log.info("Processing image with idTest %s and idPlant %s...",idTest,idPlant)
+async def processImage(idAssay,idExperiment,imageB64):
+    app_log.info("Processing image with idTest %s and idPlant %s...",idAssay,idExperiment)
     img_decoded = base64Decode(imageB64)
     now = datetime.now()
     dt_string = now.strftime("%d-%m-%Y-%H-%M-%S")
-    imageName = idTest+"-"+idPlant+"-"+dt_string
+    imageName = idAssay+"-"+idExperiment+"-"+dt_string
     saveImage(imageName,img_decoded)
     try:
         analyze_results = analyze(os.path.realpath(imageName + ".jpg"))
         app_log.info("Persisting image %s ...", imageName)
-        insert(idTest, idPlant, analyze_results, imageB64)
+        insert(idAssay, idExperiment, analyze_results, imageB64)
     except:
         app_log.info("Image %s was not succesfully processed ", imageName)
     else:
