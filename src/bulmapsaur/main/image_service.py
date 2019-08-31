@@ -21,7 +21,7 @@ async def processImage(idTest,idPlant,imageB64):
         app_log.info("Persisting image %s ...", imageName)
         insert(idTest, idPlant, analyze_results, imageB64)
     except:
-        app_log.info("Image %s was notsuccesfully processed ", imageName)
+        app_log.info("Image %s was not succesfully processed ", imageName)
     else:
         app_log.info("Deleting Image %s from disk ", imageName)
         path = os.path.join(os.getcwd(), imageName+".jpg")
