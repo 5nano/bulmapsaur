@@ -17,7 +17,7 @@ class ImageRequestHandler(tornado.web.RequestHandler):
             idAssay = imageInfo.get('idAssay')
             idExperiment = imageInfo.get('idExperiment')
             imageB64 = imageInfo.get('base64')
-            app_log.info("Image with idTest %s and idPlant %s received",idAssay,idExperiment)
+            app_log.info("Image with idAssay %s and idExperiment %s received",idAssay,idExperiment)
             #En algun momento va a correr
             IOLoop.current().spawn_callback(imageService.processImage, idAssay,idExperiment, imageB64)
             self.write("Ok")
