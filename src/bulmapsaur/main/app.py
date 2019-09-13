@@ -28,7 +28,7 @@ app = tornado.web.Application([
     (r"/bulmapsaur/api/images", ImageRequestHandler)
 ])
 
-define("port", default="8443", help="Port to listen on")
+define("port", default="5000", help="Port to listen on")
 
 ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 ssl_ctx.load_cert_chain(os.path.join(os.path.dirname(__file__), '../cert/selfsigned.crt'),
