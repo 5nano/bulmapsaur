@@ -1,1 +1,1 @@
-web: gunicorn deploy:app
+web: python src/bulmapsaur/main/app.py
