@@ -38,14 +38,15 @@ ssl_ctx.load_cert_chain(os.path.join(os.path.dirname(__file__), '../cert/selfsig
 if __name__ == "__main__":
     tornado.options.parse_command_line()
     server = HTTPServer(app,ssl_options=ssl_ctx)
-    ON_HEROKU = bool(os.environ.get('ON_HEROKU'))
-    if ON_HEROKU:
+    ON_HEROKU = os.environ.get('ON_HEROKU')
+    if ON_HEROKU=="true":
         # get the heroku port
+        app_log.info("A")
+        app_log.info(ON_HEROKU)
         port = int(os.environ.get('PORT'))
     else:
+        app_log.info("B")
         port = options.port
-    app_log.info("ON_HEROKU: " + ON_HEROKU)
-    app_log.info("SERVING ON: " + port)
     server.bind(port)
     # autodetect cpu cores and fork one process per core
     try:
