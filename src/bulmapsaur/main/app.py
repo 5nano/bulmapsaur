@@ -1,5 +1,6 @@
 import json
 import os.path
+import os
 from tornado.log import app_log
 
 import tornado.ioloop
@@ -28,7 +29,7 @@ app = tornado.web.Application([
     (r"/bulmapsaur/api/images", ImageRequestHandler)
 ])
 
-define("port", default="20161", help="Port to listen on")
+define("port", default="8443", help="Port to listen on")
 
 ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
 ssl_ctx.load_cert_chain(os.path.join(os.path.dirname(__file__), '../cert/selfsigned.crt'),
@@ -37,7 +38,13 @@ ssl_ctx.load_cert_chain(os.path.join(os.path.dirname(__file__), '../cert/selfsig
 if __name__ == "__main__":
     tornado.options.parse_command_line()
     server = HTTPServer(app,ssl_options=ssl_ctx)
-    server.bind(options.port)
+    ON_HEROKU = os.environ.get('ON_HEROKU')
+    if ON_HEROKU:
+        # get the heroku port
+        port = int(os.environ.get('PORT'))
+    else:
+        port = options.port
+    server.bind(port)
     # autodetect cpu cores and fork one process per core
     try:
         server.start(0)
