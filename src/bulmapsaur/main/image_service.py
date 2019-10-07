@@ -18,14 +18,16 @@ async def processImage(idAssay,idExperiment,imageB64):
     imageName = idAssay+"-"+idExperiment+"-"+dt_string
     saveImage(imageName,img_decoded)
     try:
-        analyze_results = analyze(os.path.realpath(imageName + ".jpg"))
+        analyze_results = analyze(os.path.realpath('images/'+imageName + ".jpg"))
         app_log.info("Persisting image %s ...", imageName)
-        insert(idAssay, idExperiment, analyze_results, imageB64)
+        path = os.path.join(os.getcwd(), 'images/'+imageName + ".jpg")
+        pathToSave= path.replace('/home/matizeitune/', '/')
+        insert(idAssay, idExperiment, analyze_results, pathToSave)
     except:
         app_log.info("Image %s was not succesfully processed ", imageName)
     else:
-        app_log.info("Deleting Image %s from disk ", imageName)
-        path = os.path.join(os.getcwd(), imageName+".jpg")
-        os.remove(path)
+        #app_log.info("Deleting Image %s from disk ", imageName)
+        #path = os.path.join(os.getcwd(), imageName+".jpg")
+        #os.remove(path)
         app_log.info("Image %s succesfully processed ", imageName)
 

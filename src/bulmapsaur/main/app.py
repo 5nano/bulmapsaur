@@ -37,7 +37,7 @@ ssl_ctx.load_cert_chain(os.path.join(os.path.dirname(__file__), '../cert/selfsig
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
-    server = HTTPServer(app,ssl_options=ssl_ctx)
+    server = HTTPServer(app)
     server.bind(options.port)
     # autodetect cpu cores and fork one process per core
     try:
