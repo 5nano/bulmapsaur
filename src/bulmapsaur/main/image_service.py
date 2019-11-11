@@ -10,7 +10,7 @@ from plantcv_service import analyze
 from cassandra_connector import insert
 
 
-async def processImage(idAssay,idExperiment,imageB64):
+async def processImage(idAssay,idExperiment,imageB64, optionalTime):
     app_log.info("Processing image with idAssay %s and idExperiment %s...",idAssay,idExperiment)
     img_decoded = base64Decode(imageB64)
     now = datetime.now()
@@ -22,7 +22,7 @@ async def processImage(idAssay,idExperiment,imageB64):
         app_log.info("Persisting image %s ...", imageName)
         path = os.path.join(os.getcwd(), 'images/'+imageName + ".jpg")
         pathToSave= path.replace('/home/matizeitune/', '/')
-        insert(idAssay, idExperiment, analyze_results, pathToSave)
+        insert(idAssay, idExperiment, analyze_results, pathToSave, optionalTime)
     except:
         app_log.info("Image %s was not succesfully processed ", imageName)
     else:

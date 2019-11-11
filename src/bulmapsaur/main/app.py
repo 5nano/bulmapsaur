@@ -2,7 +2,7 @@ import json
 import os.path
 import os
 from tornado.log import app_log
-
+from datetime import datetime
 import tornado.ioloop
 import tornado.web
 from tornado.httpserver import HTTPServer, ssl
@@ -17,10 +17,13 @@ class ImageRequestHandler(tornado.web.RequestHandler):
             imageInfo = json.loads(data)
             idAssay = imageInfo.get('idAssay')
             idExperiment = imageInfo.get('idExperiment')
+            optionalTime = None
+            if imageInfo.get('optionalTime') is not None:
+                optionalTime = imageInfo.get('optionalTime')
             imageB64 = imageInfo.get('base64')
             app_log.info("Image with idAssay %s and idExperiment %s received",idAssay,idExperiment)
             #En algun momento va a correr
-            IOLoop.current().spawn_callback(imageService.processImage, idAssay,idExperiment, imageB64)
+            IOLoop.current().spawn_callback(imageService.processImage, idAssay,idExperiment, imageB64, optionalTime)
             self.write("Ok")
             self.finish()
 
